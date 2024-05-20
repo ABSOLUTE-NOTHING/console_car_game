@@ -64,7 +64,6 @@ void gotoxy(int x, int y)
 
 void loading()
 {
-    // sleep(3);
     score = 0;
     lane = rand() % (4);
     opp1X[0] = OppLoc[lane];
@@ -114,7 +113,6 @@ void player_v()
         {
             gotoxy(i + carlane, j + 28);
             cout << Pveh[j][i];
-            // sleep(1);
         }
     }
 }
@@ -127,7 +125,6 @@ void erase_pv()
         {
             gotoxy(i + carlane, j + 28);
             cout << ' ';
-            // sleep(1);
         }
     }
 }
@@ -153,7 +150,6 @@ int erase_ov(int a[])
         {
             gotoxy((i) + (a[0]), j + a[1]);
             cout << ' ';
-            // sleep(1);
         }
     }
     if (a[1] == opp1X[1])
@@ -162,29 +158,20 @@ int erase_ov(int a[])
         opp2X[1]++;
     else if (a[1] == opp3X[1])
         opp3X[1]++;
-    // flag = -(flag);
     flag = 0;
-    // sleep(1);
 }
 
 inline int accident()
 
 
 {
-    // if(kbhit())
-    // {
-    //     mov = getch();
-    //     if(mov=='a')// || opp3X[1]>19)
-    //     {
-    //                 // cout<<"GAME OVER";
-    //                 // Sleep(300);
-
-    //     }
-    //     // return 1;
-    // }
-    // else if((opp1X[1]>=18 || opp2X[1]>=18) && (carlane == opp1X[0] || carlane == opp2X[0]))
-    //     return 1;
-    // if(|| opp3X[1]>=18)
+    if(kbhit())
+    {
+        mov = getch();
+    }
+    else if((opp1X[1]>=18 || opp2X[1]>=18) && (carlane == opp1X[0] || carlane == opp2X[0]))
+        return 1;
+    if(opp3X[1]>=18)
     {
         if ((opp1X[0] == carlane || opp2X[0] == carlane) && (opp1X[1] >= 15 && opp2X[1] >= 18))
             return 1;
@@ -308,18 +295,11 @@ void play()
                 goto over;
         }
         player_v();
-        // if(flag==1)
         opp_v(opp2X);
-        // else
         opp_v(opp1X);
-
-        // Sleep(1);
         erase_pv();
-        // sleep(1);
-
-        // if(flag==1)
         erase_ov(opp2X);
-        // else
+        
         if (accident() == 1)
         {
         over:
@@ -328,7 +308,6 @@ void play()
             return;
         }
 
-        // if (score % 5 == 0 && score != 0 && flag == 0 && opp1X[1]>=11)
         if (score % 5 == 0 && score != 0 && flag == 0 )
         {
             opp_v(opp3X);
@@ -342,8 +321,6 @@ void play()
             erase_ov(opp3X);
         }
 
-        // if(flag=1)
-
         erase_ov(opp1X);
 
         gotoxy(133, 5);
@@ -351,8 +328,6 @@ void play()
 
         if (opp1X[1] >= 32)
         {
-            // erase_ov(opp1X);
-            // srand(time(NULL));
             lane = rand() % (4);
             opp1X[0] = OppLoc[lane];
             opp1X[1] = 1;
@@ -360,9 +335,7 @@ void play()
         }
         if (opp2X[1] >= 32)
         {
-        // erase_ov(opp2X);
         re2:    
-            // srand(time(NULL));
             lane = rand() % (4);
             if (OppLoc[lane] == opp1X[0])
                 goto re2;
@@ -373,9 +346,7 @@ void play()
         }
         if (opp3X[1] >= 28)
         {
-        // erase_ov(opp3X);
         re3:
-            // srand(time(NULL));
             lane = rand() % (4);
             if (OppLoc[lane] == opp1X[0] || OppLoc[lane] == opp2X[0])
                 goto re3;
@@ -420,16 +391,15 @@ int main()
         cout << "1.PLAY";
         gotoxy(84, 10);
         cout << "2.EXIT\n";
-        // gotoxy(84, 10);
 
         char choice;
         choice = getch();
         if (choice == '1')
         {
-            // loading();
+            loading();
             play();
         }
-        // system("cls");
+        
         else if (choice != 1)
             exit(1);
     }
